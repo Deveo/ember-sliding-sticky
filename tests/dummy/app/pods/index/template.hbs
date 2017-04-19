@@ -1,0 +1,32 @@
+<div id = 'scroll-container'>
+  <div class = 'content'></div>
+
+  <div class = 'content'  id = 'the-content'>
+
+    {{#sliding-sticky
+      class = 'item'
+      id    = 'sliding-sticky-1'
+
+      slidingStickyScrollParent = '#scroll-container'
+    }}
+      Foo
+    {{/sliding-sticky}}
+
+
+    {{#sliding-sticky
+      class = 'item'
+      id    = 'sliding-sticky-2'
+
+      slidingStickyScrollParent = '#scroll-container'
+    }}
+      Bar
+    {{/sliding-sticky}}
+
+    <div class = 'item'  id = 'static-item'>
+      Baz
+    </div>
+
+  </div>{{! parent }}
+
+  <div class = 'content'></div>
+</div>{{! scroll-container }}
