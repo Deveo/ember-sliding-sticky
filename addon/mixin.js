@@ -14,11 +14,19 @@ export default Mixin.create({
   // ----- Arguments -----
   slidingStickyScrollParent     : window,
   slidingStickyThrottleDuration : 0,
-  slidingStickyOffsetTop        : 100,
-  slidingStickyOffsetBottom     : reads('slidingStickyOffsetTop'),
 
-  slidingStickyGetCSSDeclaration (positionPx) {
-    return {transform: `translate3d(0, ${positionPx}px, 0)`}
+
+
+  // ----- Overridable methods -----
+  slidingStickyApplyPosition (positionPx) {
+    const $element       = this.get('_slidingSticky_$element')
+    const cssDeclaration = {transform: `translate3d(0, ${positionPx}px, 0)`}
+
+    $element.css(cssDeclaration)
+  },
+
+  slidingStickyTransitionEnd () {
+    console.log('transition end!')
   },
 
 
@@ -43,7 +51,7 @@ export default Mixin.create({
     return $(window)
   }).readOnly(),
 
-  _slidingSticky_$eventName : computed('elementId', function () {
+  _slidingSticky_eventName : computed('elementId', function () {
     const id = this.get('elementId')
     return `slidingSticky.${id}`
   }).readOnly(),
@@ -116,8 +124,7 @@ export default Mixin.create({
       }
     }
 
-    const cssDeclaration = this.slidingStickyGetCSSDeclaration(position)
-    $element.css(cssDeclaration)
+    this.slidingStickyApplyPosition(position)
   },
 
   _slidingSticky_repositionMaybeThrottle () {
@@ -133,10 +140,10 @@ export default Mixin.create({
 
 
   // ----- Events -----
-  _slidingSticky_applyEventScroll : on('didInsertElement', function () {
+  _slidingSticky_applyEventsToScrollParent : on('didInsertElement', function () {
     this._slidingSticky_reposition()
 
-    const eventName = this.get('_slidingStickyEventNames')
+    const eventName = this.get('_slidingSticky_eventName')
 
     this
       .get('_slidingSticky_$scrollParent')
@@ -145,8 +152,26 @@ export default Mixin.create({
       })
   }),
 
-  _slidingSticky_applyEventResize : on('didInsertElement', function () {
-    const eventName = this.get('_slidingStickyEventNames')
+  _slidingSticky_applyEventsToElement : on('didInsertElement', function () {
+    if (typeof this.slidingStickyTransitionEnd !== 'function') return
+
+    const eventName = this.get('_slidingSticky_eventName')
+
+    this
+      .get('_slidingSticky_$element')
+      .on(`
+        transitionend.${eventName}
+        webkitTransitionEnd.${eventName}
+        oTransitionEnd.${eventName}
+        otransitionend.${eventName}
+        MSTransitionEnd.${eventName}
+      `, () => {
+        this.slidingStickyTransitionEnd()
+      })
+  }),
+
+  _slidingSticky_applyEventToWindow : on('didInsertElement', function () {
+    const eventName = this.get('_slidingSticky_eventName')
 
     this
       .get('_slidingSticky_$window')
@@ -156,7 +181,7 @@ export default Mixin.create({
   }),
 
   _slidingSticky_removeEvents : on('willDestroyElement', function () {
-    const eventName = this.get('_slidingStickyEventNames')
+    const eventName = this.get('_slidingSticky_eventName')
 
     this.get('_slidingSticky_$scrollParent').off(`scroll.${eventName}`)
     this.get('_slidingSticky_$scrollParent').off(`wheel.${eventName}`)
