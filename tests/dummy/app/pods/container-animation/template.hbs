@@ -1,0 +1,30 @@
+<div id = 'scroll-container'  class = 'animation'>
+  <div class = 'content'></div>
+
+  <div class = 'content'  id = 'the-content'>
+
+    {{#sliding-sticky
+      class                         = 'item foo'
+      slidingStickyScrollParent     = '#scroll-container'
+      slidingStickyThrottleDuration = 100
+    }}
+      <span>Foo</span>
+    {{/sliding-sticky}}
+
+
+    {{#sliding-sticky
+      class                         = 'item bar'
+      slidingStickyScrollParent     = '#scroll-container'
+      slidingStickyThrottleDuration = 100
+    }}
+      <span>Bar</span>
+    {{/sliding-sticky}}
+
+    <div class = 'item baz'>
+      <span>Baz</span>
+    </div>
+
+  </div>{{! parent }}
+
+  <div class = 'content'></div>
+</div>{{! scroll-container }}

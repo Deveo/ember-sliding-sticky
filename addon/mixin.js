@@ -25,9 +25,7 @@ export default Mixin.create({
     $element.css(cssDeclaration)
   },
 
-  slidingStickyTransitionEnd () {
-    console.log('transition end!')
-  },
+  slidingStickyTransitionEnd: undefined,
 
 
 

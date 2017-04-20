@@ -7,7 +7,9 @@ const Router = Ember.Router.extend({
 })
 
 Router.map(function () {
+  this.route('container-animation')
   this.route('window')
+  this.route('window-animation')
 })
 
 export default Router

@@ -3,8 +3,6 @@
 }
 
 #scroll-container {
-  margin-top    : calc(100vh - 250px);
-  margin-bottom : calc(100vh - 250px);
   margin-left   : 100px;
   margin-right  : 100px;
   width         : 800px;
@@ -28,7 +26,10 @@
   width        : 100px;
   margin-right : 50px;
   display      : table;
-  /*transition   : transform 0.5s ease-in-out*/
+}
+
+.animation .item {
+  transition   : transform 0.5s ease-in-out
 }
 
 .item span {
@@ -93,4 +94,11 @@
 
 .item.baz {
   height : 1000px;
+}
+
+a.active {
+  text-decoration : none;
+  cursor          : default;
+  color           : black;
+  font-weight     : bold;
 }
