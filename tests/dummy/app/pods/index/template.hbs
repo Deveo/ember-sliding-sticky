@@ -4,26 +4,22 @@
   <div class = 'content'  id = 'the-content'>
 
     {{#sliding-sticky
-      class = 'item'
-      id    = 'sliding-sticky-1'
-
+      class                     = 'item foo'
       slidingStickyScrollParent = '#scroll-container'
     }}
-      Foo
+      <span>Foo</span>
     {{/sliding-sticky}}
 
 
     {{#sliding-sticky
-      class = 'item'
-      id    = 'sliding-sticky-2'
-
+      class                     = 'item bar'
       slidingStickyScrollParent = '#scroll-container'
     }}
-      Bar
+      <span>Bar</span>
     {{/sliding-sticky}}
 
-    <div class = 'item'  id = 'static-item'>
-      Baz
+    <div class = 'item baz'>
+      <span>Baz</span>
     </div>
 
   </div>{{! parent }}

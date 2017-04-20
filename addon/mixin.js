@@ -13,9 +13,13 @@ export default Mixin.create({
 
   // ----- Arguments -----
   slidingStickyScrollParent     : window,
-  slidingStickyThrottleDuration : 100,
+  slidingStickyThrottleDuration : 0,
   slidingStickyOffsetTop        : 100,
   slidingStickyOffsetBottom     : reads('slidingStickyOffsetTop'),
+
+  slidingStickyGetCSSDeclaration (positionPx) {
+    return {transform: `translate3d(0, ${positionPx}px, 0)`}
+  },
 
 
 
@@ -48,11 +52,6 @@ export default Mixin.create({
 
   // ----- Methods -----
   _slidingSticky_reposition () {
-    // console.log('==========')
-    //
-    // const offsetTop    = this.get('slidingStickyOffsetTop')
-    // const offsetBottom = this.get('slidingStickyOffsetBottom')
-
     const viewportIsElement = this.get('slidingStickyScrollParent') !== window
 
     const $scrollParent         = this.get('_slidingSticky_$scrollParent')
@@ -79,10 +78,7 @@ export default Mixin.create({
          elementTopRelativeToViewport    < 0
       && elementBottomRelativeToViewport > viewportInnerHeight
 
-    if (elementFullyCoversViewport) {
-      // console.log('earlyReturn')
-      return
-    }
+    if (elementFullyCoversViewport) return
 
     const $parent             = this.get('_slidingSticky_$parent')
     const parentOffsetTop     = $parent.offset().top
@@ -97,8 +93,8 @@ export default Mixin.create({
         : parentOffsetTop - scrollParentScrollTop
 
     const isElementTopWithinViewport =
-         elementTopRelativeToViewport > 0
-      && elementTopRelativeToViewport < viewportInnerHeight
+         elementTopRelativeToViewport >= 0
+      && elementTopRelativeToViewport <  viewportInnerHeight
 
     let position = -parentTopRelativeToViewport - parentBorder - parentTopPadding
 
@@ -107,14 +103,12 @@ export default Mixin.create({
          elementOuterHeight < viewportInnerHeight
       || isElementTopWithinViewport
     ) {
-      // console.log('stick to top')
       if (position < 0) position = 0
       else if (position + elementOuterHeight > parentInnerHeight) {
         position = parentInnerHeight - elementOuterHeight
       }
 
     } else {
-      // console.log('stick to bottom')
       position -= (elementOuterHeight - viewportInnerHeight)
       if (position < 0) position = 0
       else if (position > parentInnerHeight - elementOuterHeight) {
@@ -122,7 +116,18 @@ export default Mixin.create({
       }
     }
 
-    $element.css({transform: `translate(0, ${position}px)`})
+    const cssDeclaration = this.slidingStickyGetCSSDeclaration(position)
+    $element.css(cssDeclaration)
+  },
+
+  _slidingSticky_repositionMaybeThrottle () {
+    const duration  = this.get('slidingStickyThrottleDuration')
+
+    if (duration) {
+      throttle(this, this._slidingSticky_reposition, duration, false)
+    } else {
+      this._slidingSticky_reposition()
+    }
   },
 
 
@@ -132,23 +137,21 @@ export default Mixin.create({
     this._slidingSticky_reposition()
 
     const eventName = this.get('_slidingStickyEventNames')
-    const duration  = this.get('slidingStickyThrottleDuration')
 
     this
       .get('_slidingSticky_$scrollParent')
-      .on(`scroll.${eventName}`, () => {
-        throttle(this, this._slidingSticky_reposition, duration, false)
+      .on(`scroll.${eventName} wheel.${eventName}`, () => {
+        this._slidingSticky_repositionMaybeThrottle()
       })
   }),
 
   _slidingSticky_applyEventResize : on('didInsertElement', function () {
     const eventName = this.get('_slidingStickyEventNames')
-    const duration   = this.get('slidingStickyThrottleDuration')
 
     this
       .get('_slidingSticky_$window')
       .on(`resize.${eventName}`, () => {
-        throttle(this, this._slidingSticky_reposition, duration, false)
+        this._slidingSticky_repositionMaybeThrottle()
       })
   }),
 
@@ -156,6 +159,7 @@ export default Mixin.create({
     const eventName = this.get('_slidingStickyEventNames')
 
     this.get('_slidingSticky_$scrollParent').off(`scroll.${eventName}`)
+    this.get('_slidingSticky_$scrollParent').off(`wheel.${eventName}`)
     this.get('_slidingSticky_$window')      .off(`resize.${eventName}`)
 
   }),

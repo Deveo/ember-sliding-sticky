@@ -1,26 +1,26 @@
 <div class = 'content'></div>
 
-  <div class = 'content'  id = 'the-content'>
+<div class = 'content'  id = 'the-content'>
 
-    {{#sliding-sticky
-      class = 'item'
-      id    = 'sliding-sticky-1'
-    }}
-      Foo
-    {{/sliding-sticky}}
+  {{#sliding-sticky
+    class = 'item foo'
+    id    = 'sliding-sticky-1'
+  }}
+    <span>Foo</span>
+  {{/sliding-sticky}}
 
 
-    {{#sliding-sticky
-      class = 'item'
-      id    = 'sliding-sticky-2'
-    }}
-      Bar
-    {{/sliding-sticky}}
+  {{#sliding-sticky
+    class = 'item bar'
+    id    = 'sliding-sticky-2'
+  }}
+    <span>Bar</span>
+  {{/sliding-sticky}}
 
-    <div class = 'item'  id = 'static-item'>
-      Baz
-    </div>
+  <div class = 'item baz'  id = 'static-item'>
+    <span>Baz</span>
+  </div>
 
-  </div>{{! parent }}
+</div>{{! parent }}
 
-  <div class = 'content'></div>
+<div class = 'content last'></div>

@@ -3,14 +3,15 @@
 }
 
 #scroll-container {
-  position   : fixed;
-  top        : 100px;
-  left       : 100px;
-  width      : 700px;
-  height     : 500px;
-  padding    : 100px;
-  overflow-y : scroll;
-  outline    : 1px solid deeppink;
+  margin-top    : calc(100vh - 250px);
+  margin-bottom : calc(100vh - 250px);
+  margin-left   : 100px;
+  margin-right  : 100px;
+  width         : 800px;
+  height        : 500px;
+  padding       : 100px;
+  overflow-y    : scroll;
+  outline       : 1px solid deeppink;
 }
 
 .content {
@@ -18,24 +19,78 @@
   outline    : 1px solid deepskyblue;
 }
 
+.content.last {
+  height: 100vh
+}
+
 .item {
   border       : 10px solid palegreen;
   width        : 100px;
   margin-right : 50px;
-  transition   : transform 0.5s ease-in-out
+  display      : table;
+  /*transition   : transform 0.5s ease-in-out*/
+}
+
+.item span {
+  display        : table-cell;
+  text-align     : center;
+  vertical-align : middle;
+  position       : relative;
+}
+
+.item span:before, .item span:after {
+  display   : block;
+  position  : absolute;
+  left      : 50%;
+  transform : translate3d(-50%, 0, 0);
+}
+
+.item span:before {
+  top      : 0;
+}
+
+.item span:after {
+  bottom   : 0;
+}
+
+.item.foo span:before {
+  content: '<foo>'
+}
+
+.item.foo span:after {
+  content: '</foo>'
+}
+
+.item.bar span:before {
+  content: '<bar>'
+}
+
+.item.bar span:after {
+  content: '</bar>'
+}
+
+.item.baz span:before {
+  content: '<baz>'
+}
+
+.item.baz span:after {
+  content: '</baz>'
 }
 
 #the-content {
-  padding     : 100px;
-  display     : flex;
-  align-items : flex-start;
-  position    : relative;
+  padding:     100px;
+  display:     flex;
+  align-items: flex-start;
 }
 
-#static-item {
-  height : 1000px;
+.item.foo {
+  height : 100px;
 }
 
-#sliding-sticky-2 {
+.item.bar {
   height : 700px;
+}
+
+.item.baz {
+  height : 1000px;
 }
