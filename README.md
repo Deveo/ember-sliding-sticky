@@ -14,6 +14,7 @@ A drop-in implementation for sticky elements. By default, uses `transform: trans
 **Cons**
 
 * Only one sticky element per column.
+* Customizing offset is not supported yet. PRs welcome! 
 * For the sticky element to appear fixed, throttling must be disabled. This may cause two issues:
     * Scrolling may be laggy on slow systems.
     * The sticky element may jitter slightly.
