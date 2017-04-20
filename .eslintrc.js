@@ -17,7 +17,7 @@ module.exports = {
     "no-multiple-empty-lines": "off",
     "generator-star-spacing": "off",
     "no-sequences": "off",
-    "key-spacing": "off",
+    "key-spacing": ["error", { beforeColon: true, afterColon: true, align: "colon" }],
     "no-multi-spaces": "off",
     "func-call-spacing": "off",
     "no-console": "off",

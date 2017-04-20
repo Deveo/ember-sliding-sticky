@@ -2,23 +2,23 @@
 
 module.exports = function (environment) {
   var ENV = {
-    modulePrefix: 'dummy',
-    podModulePrefix: 'dummy/pods',
-    environment: environment,
-    rootURL: '/',
-    locationType: 'auto',
-    EmberENV: {
-      FEATURES: {
+    modulePrefix    : 'dummy',
+    podModulePrefix : 'dummy/pods',
+    environment     : environment,
+    rootURL         : '/',
+    locationType    : 'hash',
+    EmberENV        : {
+      FEATURES : {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
       },
-      EXTEND_PROTOTYPES: {
+      EXTEND_PROTOTYPES : {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
+        Date : false
       }
     },
 
-    APP: {
+    APP : {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
@@ -43,9 +43,9 @@ module.exports = function (environment) {
     ENV.APP.rootElement = '#ember-testing'
   }
 
-  // if (environment === 'production') {
-  //
-  // }
+  if (environment === 'production') {
+    ENV.rootURL = '/ember-sliding-sticky'
+  }
 
   return ENV
 }

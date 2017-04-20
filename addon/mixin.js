@@ -20,12 +20,12 @@ export default Mixin.create({
   // ----- Overridable methods -----
   slidingStickyApplyPosition (positionPx) {
     const $element       = this.get('_slidingSticky_$element')
-    const cssDeclaration = {transform: `translate3d(0, ${positionPx}px, 0)`}
+    const cssDeclaration = {transform : `translate3d(0, ${positionPx}px, 0)`}
 
     $element.css(cssDeclaration)
   },
 
-  slidingStickyTransitionEnd: undefined,
+  slidingStickyTransitionEnd : undefined,
 
 
 
