@@ -22,12 +22,9 @@ A drop-in implementation for sticky elements. By default, uses `transform: trans
 
 * Only one sticky element per column.
 * Customizing offset is not supported yet. PRs welcome! 
-* For the sticky element to appear fixed, throttling must be disabled. This may cause two issues:
+* For the sticky element to appear fixed, throttling must be disabled. This may cause two issues (the effect gets worse on slower systems and when there are many sticky elements on the page):
     * Scrolling may be laggy on slow systems.
     * The sticky element may jitter slightly.
-
-    This effect gets worse when there are many sticky elements on the page. 
-
 * Only respects one scroll container. If you have a scrolling container inside a scrolling container, you can only tell a sticky element to align according to the inner container's scrolling. But that's a very rare case.
 * Relies on jQuery.
 
