@@ -1,5 +1,12 @@
 # ember-sliding-sticky
 
+[![Ember Observer Score](http://emberobserver.com/badges/ember-sliding-sticky.svg?cache_bust=1)](http://emberobserver.com/addons/ember-sliding-sticky)
+[![npm package version](https://img.shields.io/npm/v/ember-sliding-sticky.svg)](https://www.npmjs.com/package/ember-sliding-sticky)
+[![license MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/Deveo/ember-sliding-sticky/blob/gen-1/LICENSE.md)
+![ember-versions 1.13+](https://img.shields.io/badge/ember--versions-2.4%2B-yellowgreen.svg)
+![node-versions 4+](https://img.shields.io/badge/node--versions-6%2B-yellowgreen.svg)
+![ember-cli 2.12.1](https://img.shields.io/badge/uses%20ember--cli-2.11.1-blue.svg)
+
 A drop-in implementation for sticky elements. By default, uses `transform: translate3d(0, Npx, 0)` to position sticky elements.
 
 **Pros**
@@ -18,7 +25,9 @@ A drop-in implementation for sticky elements. By default, uses `transform: trans
 * For the sticky element to appear fixed, throttling must be disabled. This may cause two issues:
     * Scrolling may be laggy on slow systems.
     * The sticky element may jitter slightly.
+
     This effect gets worse when there are many sticky elements on the page. 
+
 * Only respects one scroll container. If you have a scrolling container inside a scrolling container, you can only tell a sticky element to align according to the inner container's scrolling. But that's a very rare case.
 * Relies on jQuery.
 
@@ -32,6 +41,12 @@ One possible way to achieve this is to apply the following CSS to the immediate 
 display:     flex;
 align-items: flex-start;
 ```
+
+
+
+## Demo
+
+https://github.com/Deveo/ember-sliding-sticky/graphs/contributors
 
 
 
