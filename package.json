@@ -1,6 +1,6 @@
 {
   "name": "ember-sliding-sticky",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A `position: sticky` alternative that works inside parents with `overflow: hidden`",
   "keywords": [
     "ember-addon",
