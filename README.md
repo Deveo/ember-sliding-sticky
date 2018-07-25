@@ -49,9 +49,9 @@ https://github.com/Deveo/ember-sliding-sticky/graphs/contributors
 
 ## Installation
 
-With npm: `ember i ember-sticky-container`
+With npm: `ember i ember-sliding-sticky`
 
-With Yarn: `yarn add -D ember-sticky-container`
+With Yarn: `yarn add -D ember-sliding-sticky`
 
 
 
